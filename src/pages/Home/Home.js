@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import "./Home.css";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import MoviesCard from "../../components/Header/MoviesCard/MoviesCard";
+import MoviesCard from "../../components/MoviesCard/MoviesCard";
 
 function HomePage({ theme }) {
   const [moviesList, setMoviesList] = useState([]);
@@ -25,7 +25,10 @@ function HomePage({ theme }) {
       />
       <div className={`${theme}`}>
         {moviesList.length < 1 ? (
-          <h4 className="h1" style={{ minHeight: document.documentElement.clientHeight }}>
+          <h4
+            className="h1"
+            style={{ minHeight: document.documentElement.clientHeight }}
+          >
             Type something to see search results
           </h4>
         ) : (

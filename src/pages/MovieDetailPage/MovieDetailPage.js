@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import "./MovieDetailPage.css";
 import config from "../../config";
 import ApiService from "../../services/ApiService";
 import { useEffect, useState } from "react";
-import MoviesCard from "../../components/Header/MoviesCard/MoviesCard";
+import MoviesCard from "../../components/MoviesCard/MoviesCard";
 import "./MovieDetailPage.css";
 import { connect } from "react-redux";
 
 function MovieDetailPage({ theme }) {
+  const history = useHistory();
   const [movie, setMovie] = useState([]);
   const [moviesList, setMoviesList] = useState([]);
   let { movieId } = useParams();
@@ -16,27 +17,25 @@ function MovieDetailPage({ theme }) {
   useEffect(() => {
     ApiService.get(`?i=${movieId}&apikey=${config.api.apiKey}`).then(
       (response) => {
-        console.log(response);
         const { data } = response;
         if (data) {
-          console.log(data);
           setMovie(data);
         }
       }
     );
-  }, []);
+  }, [movieId]);
 
   return (
     <>
       <Header
+        history={history}
         theme={theme}
         moviesList={moviesList}
         setMoviesList={setMoviesList}
       />
       <div className={`${theme}`}>
-      <MoviesCard movie={movie} className={theme} />
+        <MoviesCard movie={movie} className={theme} />
       </div>
-      {/* <h1 className="description">Show detail of Movie {movieId}</h1> */}
     </>
   );
 }

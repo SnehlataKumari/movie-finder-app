@@ -11,8 +11,8 @@ function Header({theme, moviesList, setMoviesList, history}) {
   
   return (
     <Navbar bg={theme} expand="lg">
-      <Navbar.Brand href="#home">
-        <img src={logo} alt="Sova Health" height="20px" />
+      <Navbar.Brand>
+        <img src={logo} alt="Sova Health" height="20px" onClick={() => history.push('/')}/>
       </Navbar.Brand>
       <AsyncTypeahead moviesList={moviesList} setMoviesList={setMoviesList} history={history}/>
       <Switch

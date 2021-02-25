@@ -3,8 +3,9 @@ import { AsyncTypeahead as ATH } from "react-bootstrap-typeahead";
 import config from "../../config";
 import ApiService from "../../services/ApiService";
 
-const AsyncTypeahead = ({ moviesList, setMoviesList, history }) => {
+const AsyncTypeahead = ({ setMoviesList, history }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [localMoviesList, setLocalMoviesList] = useState([]);
 
   const handleSearch = (query) => {
     setIsLoading(true);
@@ -16,7 +17,8 @@ const AsyncTypeahead = ({ moviesList, setMoviesList, history }) => {
         } = response;
 
         if (Search && Search.length) {
-          setMoviesList(Search);
+          setMoviesList && setMoviesList(Search);
+          setLocalMoviesList(Search);
         }
         setIsLoading(false);
       }
@@ -24,11 +26,6 @@ const AsyncTypeahead = ({ moviesList, setMoviesList, history }) => {
   };
 
   const filterBy = () => true;
-
-  function onClick(movie, history) {
-    console.log(history);
-    history.push(movie.imdbID);
-  }
 
   return (
     <ATH
@@ -38,7 +35,7 @@ const AsyncTypeahead = ({ moviesList, setMoviesList, history }) => {
       labelKey="Title"
       minLength={2}
       onSearch={handleSearch}
-      options={moviesList}
+      options={localMoviesList}
       placeholder="Search for a movie..."
       renderMenuItemChildren={(movie, props) => (
         <>
@@ -51,7 +48,7 @@ const AsyncTypeahead = ({ moviesList, setMoviesList, history }) => {
               width: "24px",
             }}
           />
-          <span onClick={(e) => onClick(movie, history)}>{movie.Title}</span>
+          <span onClick={() => history.push(movie.imdbID)}>{movie.Title}</span>
         </>
       )}
     />
