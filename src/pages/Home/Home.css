@@ -1,0 +1,13 @@
+.description {
+  text-align: center;
+}
+
+.dark {
+  background-color: #343a34 !important;
+}
+
+.h1 {
+  text-align: center;
+  font-size: inherit;
+  margin-top: 40%;
+}
